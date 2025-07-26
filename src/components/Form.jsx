@@ -19,9 +19,9 @@ const Form = () => {
     return(
         <form>
             <label htmlFor="">Altura</label>
-            <input type="number" onChange={({target}) => setAltura(evento.target.value)}/>
+            <input type="number" onChange={({target}) => setAltura(target.value)}/>
             <label htmlFor="">Peso</label>
-            <input type="number" onChange={({target}) => setPeso(evento.target.value)}/> 
+            <input type="number" onChange={({target}) => setPeso(target.value)}/> 
             <h2>Peso: {peso}</h2>
             <h2>Altura: {altura}</h2>
             <h2>IMC: {imc}</h2>

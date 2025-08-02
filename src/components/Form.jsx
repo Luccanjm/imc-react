@@ -7,26 +7,27 @@ const Form = () => {
     let [alturaEmMetros, setAlturaEmMetros] = useState(0);
     let [classificacao, setClassificacao] = useState('');
 
-useEffect(() => {
-    setPeso(Number(peso));
-    setAltura(Number(altura));
+    useEffect(() => {
     setAlturaEmMetros(altura/100);
-    if(typeof peso === 'number' && typeof alturaEmMetros === 'number'){
-        setImc(peso / (alturaEmMetros * alturaEmMetros))
+    const imcCalculado = peso / (alturaEmMetros * alturaEmMetros);
+    setImc(imcCalculado);
 
-        if(imc <= 0){
+    if(typeof peso === 'number' && typeof alturaEmMetros === 'number'){
+
+        if(imcCalculado <= 0){
             setClassificacao('Não classificado');
-        } else if(imc <= 18.5){
+        } else if(imcCalculado <= 18.5){
             setClassificacao('Abaixo do peso');
-        } else if(imc <= 24.9 && imc > 18.5){
+        } else if(imcCalculado <= 24.9 && imcCalculado > 18.5){
             setClassificacao('Peso Normal');
-        }else if(imc <= 29.9 && imc > 24.9){
+        }else if(imcCalculado <= 29.9 && imcCalculado > 24.9){
             setClassificacao('Sobrepeso');
         }else{
             setClassificacao('Obesidade');
         }
+
     } else{
-        setImc(null);
+        setImc(0);
     }
    
 }, [peso,altura])
@@ -34,12 +35,12 @@ useEffect(() => {
     return(
         <form>
             <label htmlFor="">Altura</label>
-            <input type="number" onChange={({target}) => setAltura(target.value)}/>
+            <input type="number" onChange={({target}) => setAltura(Number(target.value))}/>
             <label htmlFor="">Peso</label>
-            <input type="number" onChange={({target}) => setPeso(target.value)}/> 
+            <input type="number" onChange={({target}) => setPeso(Number(target.value))}/> 
             <h2>Peso: {peso}</h2>
             <h2>Altura: {altura}</h2>
-            <h2>IMC: {imc}</h2>
+            <h2>IMC: {imc.toFixed(2)}</h2>
             <h2>Classificação: {classificacao}</h2>
         </form>
     )
